@@ -1,35 +1,64 @@
-import { reducerActionType } from "../types/reducerActionType";
+export type Car = {
+  id: number;
+  brand: string;
+  price: number;
+};
 
-export type CarType = {
-    id: number, 
-    brand: string, 
-    price: number
-}[]
-
-export const carInitialState: CarType = [
-    {id: 1, brand: 'Tesla', price: 69000},
-    {id: 2, brand: 'Audi', price: 150000},
-    {id: 3, brand: 'Ferrari', price: 500000},
-]
-
-export const carReducer = (state: CarType, action: reducerActionType) => {
-    switch(action.type){
-        case 'ADD_CAR':
-            return [
-                    ...state, {
-                    id: action.payload.id, 
-                    brand: action.payload.brand, 
-                    price: action.payload.price 
-                }
-            ]
-
-        case 'DEL_CAR':
-           var newArray = state.filter((el)=>{
-                el.id !== action.payload.id
-            })
-            return newArray;
-
-        default:
-            return state;
+export type CarActions =
+  | {
+      type: "ADD_CAR";
+      payload: {
+        car: Omit<Car, "id">;
+      };
     }
+  | {
+      type: "REMOVE_CAR";
+      payload: {
+        id: number;
+      };
+    }
+  | {
+      type: "UPDATE_CAR";
+      payload: {
+        car: Car;
+      };
+    };
+
+export function carReducer(cars: Car[], action: CarActions) {
+  switch (action.type) {
+    case "ADD_CAR": {
+      const { brand, price } = action.payload.car;
+
+      return [
+        ...cars,
+        {
+          brand,
+          price,
+          id: Math.random() * 100,
+        },
+      ];
+    }
+    case "REMOVE_CAR": {
+      return cars.filter((car) => car.id !== action.payload.id);
+    }
+    case "UPDATE_CAR": {
+      const { brand, id, price } = action.payload.car;
+
+      return cars.map((car) => {
+        if (car.id === id) {
+          return {
+            id,
+            brand,
+            price,
+          };
+        } else {
+          return car;
+        }
+      });
+    }
+    default: {
+      console.log("UNKNOWN ACTION TYPE", action);
+      return cars;
+    }
+  }
 }
