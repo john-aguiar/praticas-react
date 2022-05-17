@@ -1,0 +1,18 @@
+
+.container{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 10px;
+    border-bottom: 10px solid black;
+}
+
+.btn {
+    padding: 5px;
+    border: none;
+    font-size: 1rem;
+    border-radius: 6px;
+    background-color: violet;
+    cursor: pointer;
+}
