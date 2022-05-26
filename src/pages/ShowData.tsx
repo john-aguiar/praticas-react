@@ -6,13 +6,11 @@ import { Context } from "../contexts/Context";
 import { useCarContext } from "../contexts/CarContext";
 
 export const ShowData = () => {
-  const { state } =
-    useContext(Context); /* Forma 1 se tiver poucas propriedades */
-  const data =
-    useContext(
-      Context
-    ); /* Forma 2 se tiver muitas propriedades, cria uma variavel e acessa por ela*/
-  const { cars, dispatch } = useCarContext();
+
+  const { state } = useContext(Context); /* Forma 1 se tiver poucas propriedades */
+  const data =  useContext(Context); /* Forma 2 se tiver muitas propriedades, cria uma variavel e acessa por ela*/
+ 
+  const { cars, dispatch } = useCarContext(); 
   const navigate = useNavigate();
 
   return (

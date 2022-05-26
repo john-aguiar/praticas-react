@@ -1,15 +1,7 @@
 import { createContext, useReducer } from "react";
-import {
-  UserType,
-  userInitialState,
-  userReducer,
-} from "../reducers/userReducer";
+import { UserType, userInitialState, userReducer } from "../reducers/userReducer";
 import { reducerActionType } from "../types/reducerActionType";
-import {
-  themeInitialState,
-  ThemeType,
-  themeReducer,
-} from "../reducers/themeReducer";
+import { themeInitialState, ThemeType, themeReducer } from "../reducers/themeReducer";
 // import { carReducer, carInitialState, CarType } from "../reducers/carReducer";
 
 type initialStateType = {
@@ -44,9 +36,8 @@ const mainReducer = (state: initialStateType, action: reducerActionType) => ({
 
 /* --------------------------------------------------------------------------------*/
 
-type ComponentWithChildrenProps = {
-  children: React.ReactNode;
-};
+type ComponentWithChildrenProps = { children: React.ReactNode;}; // Props do componente que vai receber o contexto
+
 export const ContextProvider = ({ children }: ComponentWithChildrenProps) => {
   const [state, dispatch] = useReducer(mainReducer, initialState);
 
