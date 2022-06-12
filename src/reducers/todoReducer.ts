@@ -2,8 +2,8 @@ import { reducerActionType } from "../types/reducerActionType";
 
 
 export type Todos = {
-    id: number;
-    done: boolean;
+    id?: number;
+    done?: boolean;
     text: string;
 }
 
@@ -35,8 +35,8 @@ export function todoReducer(todos: Todos[], actions: TodoActionsType){
             return [
                 ...todos, {
                 text: actions.payload.text,
-                id: Math.random() * 100,
-                done: false
+                id: actions.payload.id,
+                done: actions.payload.done
             }]
         }
         case 'REMOVE_TODO': {
@@ -48,9 +48,9 @@ export function todoReducer(todos: Todos[], actions: TodoActionsType){
             return todos.map((todo)=> {
                 if(todo.id === id){
                     return {
-                        text,
-                        id,
-                        done
+                        text: actions.payload.todo.text,
+                        id: actions.payload.todo.id,
+                        done: actions.payload.todo.done
                     }
                 } else {
                     return todo;
